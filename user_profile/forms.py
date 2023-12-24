@@ -64,7 +64,7 @@ class JobSeekerForm(forms.ModelForm):
             'about',
             'cv', 
             'email', 
-            'user_type', 
+            'job_type', 
             'phone_number', 
             'address', 
             'facebook_link',
