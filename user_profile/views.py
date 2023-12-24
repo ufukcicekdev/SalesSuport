@@ -55,8 +55,6 @@ def user_profile_view(request):
     if request.user.is_authenticated:
         custom_user = request.user
         jobseeker = custom_user.jobseeker
-        print(jobseeker.profile_image)
-        # Profil bilgileri için form
         if request.method == 'POST' and 'update_profile' in request.POST:
             form = JobSeekerForm(request.POST, request.FILES, instance=request.user.jobseeker)
             if form.is_valid():
@@ -65,7 +63,7 @@ def user_profile_view(request):
                 return redirect('profile')
         
         else:
-            form = JobSeekerForm(instance=request.user)
+            form = JobSeekerForm(instance=request.user.jobseeker)
     
 
         # Şifre değiştirme için form
@@ -83,7 +81,6 @@ def user_profile_view(request):
         context = {
             'form': form,
             'jobseeker': jobseeker,
-            'custom_user':custom_user,
             'changePass': changePass,
         }
         return render(request, 'user_profile/userprofile.html', context)
