@@ -39,11 +39,11 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{ jobseeker.first_name|title }} {{ jobseeker.last_name|title }}</h6>
-              {% if  jobseeker.user_type == "NW"%}
+              {% if  jobseeker.job_type == "NW"%}
               <span>Networker</span>
-              {% elif  jobseeker.user_type == "FS" %}
+              {% elif  jobseeker.job_type == "FS" %}
               <span>Freelancer Salesperson</span>
-              {% elif jobseeker.user_type == "FT" %}
+              {% elif jobseeker.job_type == "FT" %}
               <span>Full-Time Salesperson</span>
               {% else %}
               <h3>-</h3>

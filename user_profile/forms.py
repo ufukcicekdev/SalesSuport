@@ -8,6 +8,7 @@ from .authorization import JobSeekerBackend
 from django.core.exceptions import ValidationError
 
 
+
 class CustomAuthenticationForm(AuthenticationForm):
     remember_me = forms.BooleanField(required=False, initial=False)
 
@@ -47,10 +48,6 @@ class JobSeekerRegistrationForm(UserCreationForm):
         model = JobSeeker  
         fields = ('username', 'email', 'password1', 'password2')
 
-
-
-from django import forms
-from .models import JobSeeker
 
 class JobSeekerForm(forms.ModelForm):
     

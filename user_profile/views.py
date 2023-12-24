@@ -1,13 +1,12 @@
-from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth import  login, logout, update_session_auth_hash
 from django.shortcuts import render, redirect
 from .forms import CustomAuthenticationForm,JobSeekerRegistrationForm, JobSeekerForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from user_profile.models import *
-from django.contrib.auth.views import PasswordChangeView
-from django.urls import reverse_lazy
 from django.contrib.auth.forms import PasswordChangeForm
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 @login_required
 def dashboard(request):
@@ -54,11 +53,12 @@ def logout_view(request):
 @login_required
 def user_profile_view(request):
     if request.user.is_authenticated:
-        jobseeker = JobSeeker.objects.get(username=request.user.username)
-        
+        custom_user = request.user
+        jobseeker = custom_user.jobseeker
+        print(jobseeker.profile_image)
         # Profil bilgileri için form
         if request.method == 'POST' and 'update_profile' in request.POST:
-            form = JobSeekerForm(request.POST, request.FILES, instance=request.user)
+            form = JobSeekerForm(request.POST, request.FILES, instance=request.user.jobseeker)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Your profile has been successfully updated.')
@@ -66,7 +66,8 @@ def user_profile_view(request):
         
         else:
             form = JobSeekerForm(instance=request.user)
-        
+    
+
         # Şifre değiştirme için form
         if request.method == 'POST' and 'change_password' in request.POST:
             changePass = PasswordChangeForm(request.user, request.POST)
@@ -82,7 +83,8 @@ def user_profile_view(request):
         context = {
             'form': form,
             'jobseeker': jobseeker,
-            'changePass': changePass
+            'custom_user':custom_user,
+            'changePass': changePass,
         }
         return render(request, 'user_profile/userprofile.html', context)
     else:

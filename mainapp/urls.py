@@ -6,4 +6,5 @@ from .views import *
 urlpatterns = [
     path('', home, name='home'),
     path('', include('user_profile.urls')),
+
 ]

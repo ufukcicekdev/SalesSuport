@@ -29,11 +29,11 @@
               <img src="{{ jobseeker.profile_image.url }}" alt="Profile" class="rounded-circle">
               {% endif %}
               <h2>{{ jobseeker.first_name|title }} {{ jobseeker.last_name|title }}</h2>
-              {% if  jobseeker.user_type == "NW"%}
+              {% if  jobseeker.job_type == "NW"%}
               <h3>Networker</h3>
-              {% elif  jobseeker.user_type == "FS" %}
+              {% elif  jobseeker.job_type == "FS" %}
               <h3>Freelancer Salesperson</h3>
-              {% elif jobseeker.user_type == "FT" %}
+              {% elif jobseeker.job_type == "FT" %}
               <h3>Full-Time Salesperson</h3>
               {% else %}
               <h3>-</h3>
@@ -99,11 +99,11 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">User Type</div>
-                    {% if  jobseeker.user_type == "NW"%}
+                    {% if  jobseeker.job_type == "NW"%}
                     <div class="col-lg-9 col-md-8">Networker</div>
-                    {% elif  jobseeker.user_type == "FS" %}
+                    {% elif  jobseeker.job_type == "FS" %}
                     <div class="col-lg-9 col-md-8">Freelancer Salesperson</div>
-                    {% elif jobseeker.user_type == "FT" %}
+                    {% elif jobseeker.job_type == "FT" %}
                     <div class="col-lg-9 col-md-8">Full-Time Salesperson</div>
                     {% else %}
                     <div class="col-lg-9 col-md-8">-</div>
@@ -138,11 +138,11 @@
                 </div>
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        <button type="submit"  name="update_profile" class="btn btn-primary">Update Profile</button>
-                      </form>
+                  <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
+                </form>
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
