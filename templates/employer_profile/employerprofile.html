@@ -1,0 +1,169 @@
+{% extends 'core_2/base.html' %}
+
+{% load static %}
+
+{% block title %} DashBoard {% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Profile</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section profile">
+      <div class="row">
+        <div class="col-xl-4">
+
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+              {% if jobseeker.profile_image.url is not None and jobseeker.profile_image.url != ""  %}
+              <img src="{{ jobseeker.profile_image.url }}" alt="Profile" class="rounded-circle">
+              {% endif %}
+              <h2>{{ jobseeker.first_name|title }} {{ jobseeker.last_name|title }}</h2>
+              {% if  jobseeker.user_type == "NW"%}
+              <h3>Networker</h3>
+              {% elif  jobseeker.user_type == "FS" %}
+              <h3>Freelancer Salesperson</h3>
+              {% elif jobseeker.user_type == "FT" %}
+              <h3>Full-Time Salesperson</h3>
+              {% else %}
+              <h3>-</h3>
+              {% endif %}
+
+              <div class="social-links mt-2">
+                {% if jobseeker.facebook_link is not None and jobseeker.facebook_link != "" %}
+                <a href="{{ jobseeker.facebook_link }}" target="_blank" class="facebook"><i class="bi bi-facebook"></i></a>
+                {% endif %}
+
+                {% if jobseeker.instagram_link is not None and jobseeker.instagram_link != "" %}
+                <a href="{{ jobseeker.instagram_link }}" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
+                {% endif %}
+
+                {% if jobseeker.linkedin_link is not None and jobseeker.linkedin_link != "" %}
+                <a href="{{ jobseeker.linkedin_link }}" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                {% endif %}
+
+                {% if jobseeker.twitter_link is not None and jobseeker.twitter_link != ""%}
+                <a href="{{ jobseeker.twitter_link }}" target="_blank" class="twitter"><i class="bi bi-twitter"></i></a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-8">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                </li>
+
+              </ul>
+              <div class="tab-content pt-2">
+
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                  <h5 class="card-title">About</h5>
+                  {% if jobseeker.about != '' %}
+                  <p class="small fst-italic">{{ jobseeker.about }}</p>
+                  {% else %}
+                  <p class="small fst-italic">Greetings, you can go to the Edit Profile tab for the About Me section!</p>
+                  {% endif %}
+                  
+                  <h5 class="card-title">Profile Details</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                    <div class="col-lg-9 col-md-8">{{ jobseeker.first_name|title }} {{ jobseeker.last_name|title }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">User Type</div>
+                    {% if  jobseeker.user_type == "NW"%}
+                    <div class="col-lg-9 col-md-8">Networker</div>
+                    {% elif  jobseeker.user_type == "FS" %}
+                    <div class="col-lg-9 col-md-8">Freelancer Salesperson</div>
+                    {% elif jobseeker.user_type == "FT" %}
+                    <div class="col-lg-9 col-md-8">Full-Time Salesperson</div>
+                    {% else %}
+                    <div class="col-lg-9 col-md-8">-</div>
+                    {% endif %}
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Job</div>
+                    <div class="col-lg-9 col-md-8">Web Designer</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Country</div>
+                    <div class="col-lg-9 col-md-8">{{ jobseeker.country|title }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Address</div>
+                    <div class="col-lg-9 col-md-8">{{ jobseeker.address }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Phone</div>
+                    <div class="col-lg-9 col-md-8">{{ jobseeker.phone_number }}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Email</div>
+                    <div class="col-lg-9 col-md-8">{{ jobseeker.email }}</div>
+                  </div>
+
+                </div>
+
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit"  name="update_profile" class="btn btn-primary">Update Profile</button>
+                      </form>
+                </div>
+
+                <div class="tab-pane fade pt-3" id="profile-change-password">
+                  <!-- Change Password Form -->
+                  <form method="post">
+                    {% csrf_token %}
+                    {{ changePass|crispy }}
+                    <!-- Submit butonu -->
+                    <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                </form><!-- End Change Password Form -->
+
+                </div>
+
+              </div><!-- End Bordered Tabs -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+  {% endblock content %}

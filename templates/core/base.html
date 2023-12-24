@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Sales Suports</title>
+        <!-- Google Font -->
+        <link href="{% static 'fonts.googleapis.com/css2a55.css?family=Poppins:100,200,300,400,500,600,700,800,900' %}" rel="stylesheet">
+        <!-- Bootstrap 4.2.1 -->
+        <link rel="stylesheet" href="{% static 'css/plugins/bootstrap.min.css'%}">
+        <!-- Magnific Popup -->
+        <link rel="stylesheet" href="{% static 'cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css'%}" >
+        <!-- Font Awesome -->
+        <link href="{% static 'stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'%}"  rel="stylesheet">
+        <!-- Main CSS -->
+        <link rel="stylesheet" href="{% static 'css/main.css'%}">
+
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+
+<body>
+
+    {% include 'core/header.html' %}
+    {% include 'message.html' %}
+
+    {% block content %}
+    {% endblock content %}
+
+    {% include 'core/footer.html' %}
+
+    <!-- ========== JS ========== -->
+
+    <script src="{% static 'js/plugins/jquery-3.3.1.min.js'%}"></script>
+    <script src="{% static 'js/plugins/jquery-3.3.1.min.js'%}"></script>
+    <script src="{% static 'js/plugins/bootstrap.min.js'%}"></script>
+    <script src="{% static 'js/plugins/particles.min.js'%}"></script>
+    <script src="{% static 'js/plugins/app.js'%}"></script>
+    <script src="{% static 'js/plugins/jquery.smoothscroll.min.js'%}"></script>
+    <script src="{% static 'cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js'%}"></script>
+    <script src="{% static 'js/main.js'%}"></script>
+
+    <!-- ========== END JS ========== -->
+
+</body>
+</html>

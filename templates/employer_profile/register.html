@@ -1,0 +1,60 @@
+{% extends 'core/base.html'%}
+{% load static %}
+
+{% block title %} Login {% endblock title %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<!-- ========== Start Slider ========== -->
+<section class="slider d-flex align-items-center" id="slider">
+    <div id="particles-js"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center mt-60">
+            <div class="col-lg-6">
+                <div class="card o-hidden shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
+                                <div class="p-5" style="color: black;"> 
+                                    <h1>Register</h1>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {{ form|crispy }}
+                                        <button type="submit" class="btn btn-primary">Register</button>
+                                    </form>
+                                    <hr>
+                                    <div class="text-center" >
+                                        <a class="small" style="color: azure;" href="{% url 'login' %}">Login!</a>
+                                    </div>
+                                    <hr>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="image d-flex justify-content-lg-end">
+                    <img src="{% static 'img/slider-phone.png' %}" alt="slider-phone" class="img-fluid upDown">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ========== End Slider ========== -->
+
+<style>
+    .card {
+        background-color: transparent !important; /* Bu kartın arka planını transparan yapar */
+        border: none !important; /* Kenarlığı kaldırır */
+        box-shadow: none !important; /* Gölgeyi kaldırır */
+    }
+h1 {
+        font-family: 'Roboto', sans-serif; /* H1 başlığı için Roboto fontunu kullanma */
+    }
+</style>
+{% endblock content %}
