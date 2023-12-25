@@ -55,18 +55,17 @@ def logout_view(request):
 def user_profile_view(request):
     if request.user.is_authenticated:
         user_type = request.user.user_type
-        employer = Employer.objects.get(username=request.user.username)
+        employer = request.user.employer
         
-        # Profil bilgileri için form
         if request.method == 'POST' and 'update_profile' in request.POST:
-            form = EmployerForm(request.POST, request.FILES, instance=request.user)
+            form = EmployerForm(request.POST, request.FILES, instance=request.user.employer)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Your profile has been successfully updated.')
                 return redirect('employer_profile')
         
         else:
-            form = EmployerForm(instance=request.user)
+            form = EmployerForm(instance=request.user.employer)
         
         # Şifre değiştirme için form
         if request.method == 'POST' and 'change_password' in request.POST:

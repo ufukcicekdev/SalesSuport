@@ -6,7 +6,8 @@ from crispy_forms.layout import Submit
 from django.core.exceptions import ValidationError
 from .authorization import JobSeekerBackend  
 from django.core.exceptions import ValidationError
-
+from django.core.validators import URLValidator
+from mainapp.utils import validate_social_link
 
 
 class CustomAuthenticationForm(AuthenticationForm):
@@ -96,6 +97,32 @@ class JobSeekerForm(forms.ModelForm):
                 raise ValidationError("Maximum file size should be 10MB.")
         
         return cv
+
+
+
+    def clean_facebook_link(self):
+        facebook_link = self.cleaned_data.get('facebook_link')
+        if facebook_link:
+            return validate_social_link(facebook_link, "Facebook", "facebook")
+        return facebook_link
+
+    def clean_twitter_link(self):
+        twitter_link = self.cleaned_data.get('twitter_link')
+        if twitter_link:
+            return validate_social_link(twitter_link, "Twitter", "twitter")
+        return twitter_link
+
+    def clean_linkedin_link(self):
+        linkedin_link = self.cleaned_data.get('linkedin_link')
+        if linkedin_link:
+            return validate_social_link(linkedin_link, "LinkedIn", "linkedin")
+        return linkedin_link
+
+    def clean_instagram_link(self):
+        instagram_link = self.cleaned_data.get('instagram_link')
+        if instagram_link:
+            return validate_social_link(instagram_link, "Instagram", "instagram")
+        return instagram_link
 
 
 
