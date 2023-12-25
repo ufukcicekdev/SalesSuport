@@ -184,3 +184,5 @@ AUTO_LOGOUT = {'IDLE_TIME': 21600}  # logout after 10 minutes of downtime
 
 
 SESSION_TIMEOUT_REDIRECT = 'home'
+
+

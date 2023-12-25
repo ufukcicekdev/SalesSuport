@@ -11,8 +11,9 @@ from django.dispatch import receiver
 @login_required
 def dashboard(request):
     if request.user.is_authenticated:
+        user_type = request.user.user_type
         jobseeker = JobSeeker.objects.get(username=request.user.username)
-        return render(request, 'user_profile/dashboard.html', {'jobseeker': jobseeker})
+        return render(request, 'user_profile/dashboard.html', {'jobseeker': jobseeker, 'user_type':user_type})
     else:
         return redirect('home')
 
@@ -37,6 +38,7 @@ def register_view(request):
         form = JobSeekerRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
+            user.user_type = 'jobseeker'
             user.is_active = True  
             user.save()
             return redirect('login') 
@@ -53,6 +55,7 @@ def logout_view(request):
 @login_required
 def user_profile_view(request):
     if request.user.is_authenticated:
+        user_type = request.user.user_type
         custom_user = request.user
         jobseeker = custom_user.jobseeker
         if request.method == 'POST' and 'update_profile' in request.POST:
@@ -82,6 +85,7 @@ def user_profile_view(request):
             'form': form,
             'jobseeker': jobseeker,
             'changePass': changePass,
+            'user_type':user_type
         }
         return render(request, 'user_profile/userprofile.html', context)
     else:

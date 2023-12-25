@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#slider">Home
+                    <a class="nav-link" href="{% url 'home' %}">Home
                         <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
@@ -36,9 +36,18 @@
                 {% endif %}
 
                 {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'dashboard' %}">DashBoard</a>
-                </li>
+                    {% if user_type == 'jobseeker' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">DashBoard</a>
+                    </li>
+                    {% endif %}
+
+                    {% if user_type == 'employer' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'emloyer_dashboard' %}">DashBoard</a>
+                    </li>
+                    {% endif %}
+
                 {% endif %}
                 
                 <li class="nav-item">

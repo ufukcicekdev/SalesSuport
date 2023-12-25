@@ -12,7 +12,7 @@
       <h1>Profile</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'employer_dashboard' %}">Home</a></li>
           <li class="breadcrumb-item">Users</li>
           <li class="breadcrumb-item active">Profile</li>
         </ol>
@@ -25,35 +25,35 @@
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-              {% if jobseeker.profile_image.url is not None and jobseeker.profile_image.url != ""  %}
-              <img src="{{ jobseeker.profile_image.url }}" alt="Profile" class="rounded-circle">
+              {% if employer.profile_image.url is not None and employer.profile_image.url != ""  %}
+              <img src="{{ employer.profile_image.url }}" alt="Profile" class="rounded-circle">
               {% endif %}
-              <h2>{{ jobseeker.first_name|title }} {{ jobseeker.last_name|title }}</h2>
-              {% if  jobseeker.user_type == "NW"%}
+              <h2>{{ employer.first_name|title }} {{ employer.last_name|title }}</h2>
+              {% if  employer.user_type == "NW"%}
               <h3>Networker</h3>
-              {% elif  jobseeker.user_type == "FS" %}
+              {% elif  employer.user_type == "FS" %}
               <h3>Freelancer Salesperson</h3>
-              {% elif jobseeker.user_type == "FT" %}
+              {% elif employer.user_type == "FT" %}
               <h3>Full-Time Salesperson</h3>
               {% else %}
               <h3>-</h3>
               {% endif %}
 
               <div class="social-links mt-2">
-                {% if jobseeker.facebook_link is not None and jobseeker.facebook_link != "" %}
-                <a href="{{ jobseeker.facebook_link }}" target="_blank" class="facebook"><i class="bi bi-facebook"></i></a>
+                {% if employer.facebook_link is not None and employer.facebook_link != "" %}
+                <a href="{{ employer.facebook_link }}" target="_blank" class="facebook"><i class="bi bi-facebook"></i></a>
                 {% endif %}
 
-                {% if jobseeker.instagram_link is not None and jobseeker.instagram_link != "" %}
-                <a href="{{ jobseeker.instagram_link }}" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
+                {% if employer.instagram_link is not None and employer.instagram_link != "" %}
+                <a href="{{ employer.instagram_link }}" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
                 {% endif %}
 
-                {% if jobseeker.linkedin_link is not None and jobseeker.linkedin_link != "" %}
-                <a href="{{ jobseeker.linkedin_link }}" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                {% if employer.linkedin_link is not None and employer.linkedin_link != "" %}
+                <a href="{{ employer.linkedin_link }}" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
                 {% endif %}
 
-                {% if jobseeker.twitter_link is not None and jobseeker.twitter_link != ""%}
-                <a href="{{ jobseeker.twitter_link }}" target="_blank" class="twitter"><i class="bi bi-twitter"></i></a>
+                {% if employer.twitter_link is not None and employer.twitter_link != ""%}
+                <a href="{{ employer.twitter_link }}" target="_blank" class="twitter"><i class="bi bi-twitter"></i></a>
                 {% endif %}
               </div>
             </div>
@@ -84,8 +84,8 @@
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                   <h5 class="card-title">About</h5>
-                  {% if jobseeker.about != '' %}
-                  <p class="small fst-italic">{{ jobseeker.about }}</p>
+                  {% if employer.about != '' %}
+                  <p class="small fst-italic">{{ employer.about }}</p>
                   {% else %}
                   <p class="small fst-italic">Greetings, you can go to the Edit Profile tab for the About Me section!</p>
                   {% endif %}
@@ -94,16 +94,16 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                    <div class="col-lg-9 col-md-8">{{ jobseeker.first_name|title }} {{ jobseeker.last_name|title }}</div>
+                    <div class="col-lg-9 col-md-8">{{ employer.first_name|title }} {{ employer.last_name|title }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">User Type</div>
-                    {% if  jobseeker.user_type == "NW"%}
+                    {% if  employer.user_type == "NW"%}
                     <div class="col-lg-9 col-md-8">Networker</div>
-                    {% elif  jobseeker.user_type == "FS" %}
+                    {% elif  employer.user_type == "FS" %}
                     <div class="col-lg-9 col-md-8">Freelancer Salesperson</div>
-                    {% elif jobseeker.user_type == "FT" %}
+                    {% elif employer.user_type == "FT" %}
                     <div class="col-lg-9 col-md-8">Full-Time Salesperson</div>
                     {% else %}
                     <div class="col-lg-9 col-md-8">-</div>
@@ -117,22 +117,22 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Country</div>
-                    <div class="col-lg-9 col-md-8">{{ jobseeker.country|title }}</div>
+                    <div class="col-lg-9 col-md-8">{{ employer.country|title }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Address</div>
-                    <div class="col-lg-9 col-md-8">{{ jobseeker.address }}</div>
+                    <div class="col-lg-9 col-md-8">{{ employer.address }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Phone</div>
-                    <div class="col-lg-9 col-md-8">{{ jobseeker.phone_number }}</div>
+                    <div class="col-lg-9 col-md-8">{{ employer.phone_number }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8">{{ jobseeker.email }}</div>
+                    <div class="col-lg-9 col-md-8">{{ employer.email }}</div>
                   </div>
 
                 </div>

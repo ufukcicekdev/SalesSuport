@@ -1,6 +1,5 @@
 from django.db import models
 from mainapp.models import CustomUser
-from django.contrib.auth.models import Group, Permission
 
 # Create your models here.
 
