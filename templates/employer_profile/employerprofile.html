@@ -48,6 +48,10 @@
                 {% if employer.twitter_link is not None and employer.twitter_link != ""%}
                 <a href="{{ employer.twitter_link }}" target="_blank" class="twitter"><i class="bi bi-twitter"></i></a>
                 {% endif %}
+
+                {% if employer.website is not None and employer.website != ""%}
+                <a href="{{ employer.website }}" target="_blank" class="website"><i class="bi bi-globe"></i></a>
+                {% endif %}
               </div>
             </div>
           </div>
