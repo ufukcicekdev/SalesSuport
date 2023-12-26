@@ -24,7 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-a8wayh(84w6o$v2uc!&ghs7*x9v8*4)&w=r)*hxt)xnslkl80s"
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     "employer",
     "crispy_forms",
     "crispy_bootstrap4",
+    "storages",
 ]
 
 
@@ -185,4 +188,25 @@ AUTO_LOGOUT = {'IDLE_TIME': 21600}  # logout after 10 minutes of downtime
 
 SESSION_TIMEOUT_REDIRECT = 'home'
 
+
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CUSTOM_DOMAIN = os.getenv('AWS_S3_CUSTOM_DOMAIN')
+AWS_DEFAULT_ACL = os.getenv('AWS_DEFAULT_ACL')
+AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME")
+AWS_S3_ENDPOINT_URL = os.getenv("AWS_S3_ENDPOINT_URL")
+
+
+
+
+if 'myapp' in INSTALLED_APPS:
+    DEFAULT_FILE_STORAGE = 'myapp.storage_backends.CustomS3Boto3Storage'
+
+if 'employer' in INSTALLED_APPS:
+    DEFAULT_FILE_STORAGE = 'employer.storage_backends.CustomS3Boto3Storage'
+
+if 'user_profile' in INSTALLED_APPS:
+    DEFAULT_FILE_STORAGE = 'user_profile.storage_backends.CustomS3Boto3Storage'
 
